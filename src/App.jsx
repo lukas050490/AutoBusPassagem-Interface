@@ -7,7 +7,7 @@ import SitSelect from './pages/sitSelect';
 import SummaryBuy from './pages/summaryBuy';
 import Payment from './pages/payment';
 import Confirmation from './pages/confirmation';
-import Companies from './pages/companies';
+import Companies from './pages/companies/index.jsx';
 import ServiceType from './pages/serviceType';
 
 function App() {

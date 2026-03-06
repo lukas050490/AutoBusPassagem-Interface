@@ -10,7 +10,7 @@ function Home() {
     return (
         <>
             <div className="relative h-screen overflow-hidden">
-                <video autoPlay loop muted playsInline src={video} class="absolute top-0 left-0 w-full h-full object-cover z-0">
+                <video autoPlay loop muted playsInline src={video} className="absolute top-0 left-0 w-full h-full object-cover z-0">
                     Seu navegador não suporta a tag de vídeo.
                 </video>
                 <div className="relative z-10 flex items-center justify-center h-full text-white">

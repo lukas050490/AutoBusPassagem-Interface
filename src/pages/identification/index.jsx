@@ -9,7 +9,7 @@ function Identification() {
     const [error, setError] = useState("");
 
     const { outboundSelection, returnSelection, companyName, origin, destination, dateGo, dateReturn } = state || {};
-
+    
     if (!outboundSelection) {
         return <p>Dados da viagem não encontrados</p>;
     }
@@ -17,12 +17,14 @@ function Identification() {
     function selectionTotal(sel) {
         if (!sel) return 0;
         if (typeof sel.totalPrice === 'number') return sel.totalPrice;
-        if (sel.basePrice && sel.selectedSeats) return sel.basePrice * sel.selectedSeats.length;
+        if (sel.price && sel.selectedSeats) return sel.price * sel.selectedSeats.length;
         return 0;
     }
 
     const outbound = outboundSelection;
     const retorno = returnSelection;
+
+    
     const outboundTotal = selectionTotal(outbound);
     const returnTotal = selectionTotal(retorno);
     const grandTotal = outboundTotal + returnTotal;
@@ -96,7 +98,7 @@ function Identification() {
                 <p>Data: {outbound.date || dateGo}</p>
                 <p>Horário: <strong>{outbound.hour}</strong></p>
                 <p>Serviço: <strong>{outbound.serviceType}</strong></p>
-                <p>Assentos: <strong>{outbound.selectedSeats?.join(', ')}</strong></p>
+                <p>Assentos: <strong>{outbound.selectedSeats?.map(seat => seat.number).join(', ')}</strong></p>
                 <p className="font-bold">Subtotal Ida: R$ {outboundTotal}</p>
 
                 {retorno && (
@@ -105,7 +107,7 @@ function Identification() {
                         <p>Data: {retorno.date || dateReturn}</p>
                         <p>Horário: <strong>{retorno.hour}</strong></p>
                         <p>Serviço: <strong>{retorno.serviceType}</strong></p>
-                        <p>Assentos: <strong>{retorno.selectedSeats?.join(', ')}</strong></p>
+                        <p>Assentos: <strong>{retorno.selectedSeats?.map(seat => seat.number).join(', ')}</strong></p>
                         <p className="font-bold">Subtotal Volta: R$ {returnTotal}</p>
                     </>
                 )}

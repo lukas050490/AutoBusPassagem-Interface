@@ -1,30 +1,46 @@
 
-import CentralButton from "../../components/centralButton";
+import CentralButton from "../../components/centralButton/index.jsx";
 import { useLocation, useNavigate } from "react-router-dom";
-import { companies } from "../../data/companies";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import api from '../../services/api';
 
 function DestinyAndDate() {
     const navigate = useNavigate();
     const { state } = useLocation();
     const companyId = state?.companyId;
     const companyName = state?.companyName;
-    const company = companies.find(c => c.id === companyId);
 
+    const [trips, setTrips] = useState([]);
     const [origin, setOrigin] = useState("");
     const [destinations, setDestinations] = useState([]);
     const [destination, setDestination] = useState("");
     const [dateGo, setDateGo] = useState("");
-    const [dateReturn, setDateReturn] = useState("");
     const [onlyGo, setOnlyGo] = useState(false);
+    const [dateReturn, setDateReturn] = useState("");
+    const origins = [...new Set(trips.map(trip => trip.origin))];
+
+    useEffect(() => {
+        const fetchTrips = async () => {
+            try {
+                const response = await api.get(`/auth/trips?companyId=${companyId}`);
+
+                setTrips(response.data);
+            } catch (error) {
+                console.error('Erro ao buscar viagens:', error);
+            }
+        };
+        if (companyId) fetchTrips();
+    }, [companyId]);
 
     const handleOriginChange = (e) => {
         const selectedOrigin = e.target.value;
         setOrigin(selectedOrigin);
         setDestination("");
 
-        const originData = company.origins.find(o => o.city === selectedOrigin);
-        setDestinations(originData?.destinations || []);
+        const availableDestinations = trips
+            .filter(trip => trip.origin === selectedOrigin)
+            .map(trip => trip.destination);
+        setDestinations([...new Set(availableDestinations)]);
     };
 
     const handleDestinationChange = (e) => {
@@ -92,8 +108,8 @@ function DestinyAndDate() {
                             className=" w-80 h-10 border-2 border-b-cyan-800 rounded-lg p-2 hover:border-primaryLight focus:outline-none focus:ring-2 focus:ring-primaryLight"
                         >
                             <option value="">Selecione...</option>
-                            {company.origins.map((o) => (
-                                <option key={o.city} value={o.city}>{o.city}</option>
+                            {origins.map((o) => (
+                                <option key={o} value={o}>{o}</option>
                             ))}
                         </select>
                     </div>
