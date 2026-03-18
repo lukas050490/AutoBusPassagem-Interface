@@ -10,7 +10,6 @@ function Payment() {
 
     useEffect(() => {
         if (!state || !state.reservationId) {
-            console.log("Sem reservationId, redirecionando...");
             navigate("/");
         }
     }, [state, navigate]);
@@ -34,19 +33,13 @@ function Payment() {
         try {
             setProcessing(true);
 
-            console.log("Enviando pagamento:", {
+
+            const response = await api.post("/payments", {
                 reservation_id: reservationId,
                 method: paymentMethod === "card" ? "CARD" : "PIX",
                 amount: total
             });
 
-            const response = await api.post("/auth/payments", {
-                reservation_id: reservationId,
-                method: paymentMethod === "card" ? "CARD" : "PIX",
-                amount: total
-            });
-
-            console.log("Resposta do pagamento:", response.data);
 
             navigate("/confirmacao", {
                 state: {
@@ -59,7 +52,6 @@ function Payment() {
             });
 
         } catch (error) {
-            console.error("Erro ao processar pagamento:", error);
             alert(error.response?.data?.error || "Erro ao finalizar pagamento");
         } finally {
             setProcessing(false);

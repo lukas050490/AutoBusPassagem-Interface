@@ -23,6 +23,8 @@ function SummaryBuy() {
         returnSelection,
     } = state || {};
 
+    console.log(state)
+
     const outbound = {
         origin: outboundSelection?.origin || origin,
         destination: outboundSelection?.destination || destination,
@@ -56,7 +58,6 @@ function SummaryBuy() {
 
             const seats = [];
 
-            // 🔥 CORREÇÃO: Verificar se outboundSelection existe
             if (state.outboundSelection?.selectedSeats) {
                 state.outboundSelection.selectedSeats.forEach(seat => {
                     seats.push({
@@ -66,36 +67,30 @@ function SummaryBuy() {
                 });
             }
 
-            // 🔥 CORREÇÃO: Verificar se returnSelection existe
+
             if (state.returnSelection?.selectedSeats) {
                 state.returnSelection.selectedSeats.forEach(seat => {
                     seats.push({
-                        trip_id: state.returnSelection.tripId,  // ← Agora pega o tripId da volta
+                        trip_id: state.returnSelection.tripId,
                         seat_id: seat.id,
                     });
                 });
             }
 
-            // 🔥 CORREÇÃO: Validar se todos os seats têm trip_id
+
             const invalidSeats = seats.filter(s => !s.trip_id);
             if (invalidSeats.length > 0) {
-                console.error("Assentos com trip_id inválido:", invalidSeats);
                 alert("Erro: alguns assentos não têm identificação de viagem");
                 setProcessing(false);
                 return;
             }
 
-            console.log("Enviando reserva:", {
-                passenger_cpf: passenger?.cpf?.replace(/[^\d]/g, ''), // Remove pontuação
-                seats: seats
-            });
 
-            const reservationResponse = await api.post("/auth/reservations", {
+            const reservationResponse = await api.post("/reservations", {
                 passenger_cpf: passenger?.cpf?.replace(/[^\d]/g, ''), // CPF sem pontuação
                 seats: seats,
             });
 
-            console.log("Resposta da reserva:", reservationResponse.data);
 
             const reservationId = reservationResponse.data.reservation?.id || reservationResponse.data.id;
 
@@ -112,8 +107,6 @@ function SummaryBuy() {
             });
 
         } catch (error) {
-            console.error("Erro detalhado ao processar reservation:", error);
-            console.error("Resposta do erro:", error.response?.data);
             alert(error.response?.data?.error || "Erro ao finalizar reservation");
         } finally {
             setProcessing(false);

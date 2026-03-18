@@ -15,10 +15,9 @@ function Companies() {
         const fetchCompanies = async () => {
             try {
                 setLoading(true);
-                const response = await api.get('/auth/companies');
+                const response = await api.get('/companies');
                 setCompanies(response.data);
             } catch (error) {
-                console.error('Erro ao buscar empresas:', error);
                 setError(error.message || 'Erro desconhecido');
             } finally {
                 setLoading(false);

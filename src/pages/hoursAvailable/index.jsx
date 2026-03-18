@@ -33,7 +33,7 @@ function HoursAvailable() {
             try {
                 setLoading(true);
 
-                const response = await api.get('/auth/trips/available-times', {
+                const response = await api.get('/trips/available-times', {
                     params: {
                         companyId,
                         origin: currentOrigin,
@@ -61,7 +61,6 @@ function HoursAvailable() {
                     };
                 });
 
-                console.log("Horários formatados:", transformedData);
                 setAvailableHours(transformedData);
             } catch (error) {
                 if (error.code === 'ECONNABORTED') {
@@ -85,7 +84,7 @@ function HoursAvailable() {
     }, [companyId, isReturn, currentOrigin, currentDestination, currentDate]);
 
     function handleSelectHour(hour) {
-        console.log("Horário selecionado:", hour);
+
 
         // Escolha da IDA (e existe volta)
         if (!onlyGo && !isReturn) {
@@ -123,7 +122,6 @@ function HoursAvailable() {
                 date: dateReturn,
             };
 
-            console.log("ReturnData:", returnData);
 
             navigate("/tipo-de-servico", {
                 state: {

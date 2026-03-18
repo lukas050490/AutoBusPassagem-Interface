@@ -22,7 +22,7 @@ function DestinyAndDate() {
     useEffect(() => {
         const fetchTrips = async () => {
             try {
-                const response = await api.get(`/auth/trips?companyId=${companyId}`);
+                const response = await api.get(`/trips?companyId=${companyId}`);
 
                 setTrips(response.data);
             } catch (error) {
