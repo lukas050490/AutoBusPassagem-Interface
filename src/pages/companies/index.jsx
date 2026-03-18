@@ -36,7 +36,7 @@ function Companies() {
                     backgroundSize: "100% 100%",
                 }}
             >
-                {/* <h1 className="text-4xl text-primaryLight font-bold">ESCOLHA A EMPRESA</h1> */}
+
                 <h1 className=" text-4xl font-bold bg-linear-to-t from-blue-500 via-teal-500 to-orange-500 text-transparent bg-clip-text">ESCOLHA A EMPRESA</h1>
                 <div className=" grid grid-cols-3 gap-20 ">
                     {loading ? (

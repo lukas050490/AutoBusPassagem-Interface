@@ -112,15 +112,6 @@ function SeatSelect() {
         }
     }, [tripId, sessionId, fetchSeats]);
 
-    // Configura intervalo para atualizar assentos periodicamente
-    // useEffect(() => {
-    //     if (!tripId || !sessionId) return;
-
-    //      const interval = setInterval(fetchSeats, 10000); // Atualiza a cada 10 segundos
-
-    //     return () => clearInterval(interval);
-    // }, [tripId, sessionId, fetchSeats]);
-
     // Função para reservar/liberar assento
     const toggleSeat = async (seat) => {
         if (reservingSeat || !sessionId) return;
@@ -176,7 +167,7 @@ function SeatSelect() {
                     }
                 });
             }
-            
+
             // Atualiza a lista de assentos
             await fetchSeats();
 
@@ -196,7 +187,7 @@ function SeatSelect() {
             }
 
             setError(errorMessage);
-            await fetchSeats(); // Recarrega para garantir consistência
+            await fetchSeats();
         } finally {
             setReservingSeat(false);
         }
@@ -229,7 +220,7 @@ function SeatSelect() {
                     tripId: currentSelection.tripId,
                     selectedSeats: selectedSeatsOutbound.map(seat => ({
                         id: seat.id,
-                        number: seat.number // 👈 Garanta que está aqui
+                        number: seat.number
                     })),
                     totalPrice:
                         (localOutbound?.price || outboundSelection?.price || 0) *
@@ -261,7 +252,7 @@ function SeatSelect() {
                 tripId: returnSelection?.tripId,
                 selectedSeats: selectedSeatsReturn.map(seat => ({
                     id: seat.id,
-                    number: seat.number // 👈 Garanta que está aqui
+                    number: seat.number
                 })),
                 totalPrice:
                     (localReturn?.price || returnSelection?.price || 0) *
@@ -339,7 +330,6 @@ function SeatSelect() {
                 <p className="mt-2 font-medium">Selecionando: <strong>{currentSide === "outbound" ? "Ida" : "Volta"}</strong></p>
             </div>
 
-            {/* Legenda */}
             <div className="flex gap-6 text-sm flex-wrap justify-center">
                 <div className="flex items-center gap-2">
                     <div className="w-4 h-4 bg-teal-500 rounded"></div>
@@ -359,7 +349,6 @@ function SeatSelect() {
                 </div>
             </div>
 
-            {/* Info de atualização */}
             <div className="text-sm text-gray-600">
                 <p>Última atualização: {lastUpdate.toLocaleTimeString()}</p>
                 <p>Você tem 15 minutos para completar a reserva</p>
@@ -371,8 +360,8 @@ function SeatSelect() {
                         ? selectedSeatsOutbound.some(s => s.id === seat.id)
                         : selectedSeatsReturn.some(s => s.id === seat.id);
 
-                    // Determina a cor do botão
-                    let buttonColor = "bg-teal-500"; // disponível
+
+                    let buttonColor = "bg-teal-500";
                     let isDisabled = false;
 
                     if (seat.status === 'sold') {
