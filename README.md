@@ -81,6 +81,8 @@ Siga os passos abaixo para rodar o projeto localmente.
 
 ![Dashboard Preview](https://github.com/lukas050490/AutoBusPassagem-Interface/blob/main/public/empresa%202026-03-06%20082239.png?raw=true)
 
+![Dashboard Preview](https://github.com/lukas050490/AutoBusPassagem-Interface/blob/main/public/destino%202026-03-19%20091055.png?raw=true)
+
 ```bash
 git clone https://github.com/seu-usuario/busticket-manager.git
 cd busticket-manager
