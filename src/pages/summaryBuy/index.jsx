@@ -23,7 +23,6 @@ function SummaryBuy() {
         returnSelection,
     } = state || {};
 
-    console.log(state)
 
     const outbound = {
         origin: outboundSelection?.origin || origin,

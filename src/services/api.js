@@ -5,11 +5,31 @@ const apiBusPassages = axios.create({
     timeout: 50000,
 });
 
-// apiBusPassages.interceptors.request.use(async config =>{
-//     const userData = await localStorage.getItem('buspassages:userData')
-//     const token = userData && JSON.parse(userData).token
-//     config.headers.authorization = `Bearer ${token}`
-//     return config
-// })
+// Interceptor para adicionar token
+apiBusPassages.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem('@BusTicket:token');
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+
+// Interceptor para tratar erros de autenticação
+apiBusPassages.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            localStorage.removeItem('@BusTicket:user');
+            localStorage.removeItem('@BusTicket:token');
+            window.location.href = '/admin/login';
+        }
+        return Promise.reject(error);
+    }
+);
 
 export default apiBusPassages
