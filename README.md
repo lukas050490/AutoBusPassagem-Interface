@@ -4,7 +4,7 @@
 
 Sistema completo para autoatendimento de compra de passagens rodoviárias com painel administrativo hierárquico. O projeto simula todo o fluxo de compra (escolha de empresa, destino, horário, assentos, CPF e métodos de pagamento) e oferece uma camada administrativa robusta com níveis de acesso diferenciados.
 
-![Dashboard Preview](https://via.placeholder.com/800x400?text=Dashboard+Preview+-+Adicione+sua+imagem+aqui)
+![Dashboard Preview](https://github.com/lukas050490/AutoBusPassagem-Interface/blob/main/public/home%202026-03-19%20090949.png?raw=true)
 
 
 
