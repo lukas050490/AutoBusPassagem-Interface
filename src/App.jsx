@@ -17,6 +17,9 @@ import CompanyManagement from './pages/pagesAdmins/CompanyManagement.jsx';
 import ProtectedRoute from './components/protectedRoute/index.jsx';
 import AdminsManagement from './pages/pagesAdmins/AdminsManagement.jsx';
 import TripsManagement from './pages/pagesAdmins/TripsManagement.jsx';
+import TripsManagementAdmins from './pages/pagesAdmins/TripsManagementAdmins.jsx';
+import ReservationsManagement from './pages/pagesAdmins/ReservationsManagement.jsx';
+import ReportsManagement from './pages/pagesAdmins/ReportsManagement.jsx';
 
 
 
@@ -77,6 +80,22 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={['ADMIN', 'SUPER_ADMIN']}>
                 <TripsManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/reservations"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN', 'SUPER_ADMIN']}>
+                <ReservationsManagement />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/reports"
+            element={
+              <ProtectedRoute allowedRoles={['ADMIN', 'SUPER_ADMIN']}>
+                <ReportsManagement />
               </ProtectedRoute>
             }
           />

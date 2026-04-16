@@ -26,7 +26,7 @@ function SuperAdminDashboard() {
             title: 'Relatórios Gerais',
             description: 'Visualizar relatórios de todas as empresas',
             icon: '📊',
-            path: '/super-admin/reports',
+            path: '/admin/trips',
             color: 'from-orange-500 to-orange-600'
         }
     ];
